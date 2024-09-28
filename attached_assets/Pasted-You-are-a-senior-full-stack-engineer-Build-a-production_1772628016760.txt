@@ -1,0 +1,137 @@
+You are a senior full-stack engineer.
+
+Build a production-ready web application called “AgriBridge” – a marketplace platform that connects smallholder farmers with buyers.
+
+Tech Requirements:
+- Backend: Node.js with Express
+- Database: PostgreSQL (use Supabase-compatible structure)
+- Frontend: Clean modern UI using EJS or simple HTML + CSS (mobile responsive)
+- Authentication: Simple email/phone + password login (JWT-based sessions)
+- Image storage: Design the system to support Sia decentralized storage (store image URLs in DB)
+- Architecture: Clean MVC structure
+- Must be structured for future scaling into agricultural data intelligence platform
+
+Core Features:
+
+1) User Roles
+- Farmer
+- Buyer
+
+2) Registration & Login
+Fields:
+- Full name
+- Phone
+- State
+- Role (Farmer or Buyer)
+- Password (hashed)
+
+3) Farmer Features
+- Create farm profile (farm size, main crops, local government area)
+- Post produce listing:
+   - Crop name
+   - Category (Food crop / Cash crop)
+   - Quantity (with unit selector: kg, ton, bags)
+   - Price
+   - Harvest date
+   - Upload image (store URL field for Sia integration)
+   - Mark as “Available” or “Sold”
+
+- Dashboard:
+   - Total listings
+   - Total views
+   - Boosted listings indicator
+   - Edit/delete listing
+
+4) Buyer Features
+- Search & filter by:
+   - Crop name
+   - State
+   - Category
+   - Price range
+
+- View listing page:
+   - Farmer name
+   - Farm location (state only)
+   - Contact via WhatsApp button
+   - Call button
+   - Report listing button
+
+5) Unique Cool Features (MVP but impressive):
+
+- Trending Crops Section (auto-detect most posted crops)
+- Price Insight Widget (show average price of same crop from database)
+- Verified Farmer Badge (admin toggle field)
+- Boosted Listings appear first
+- Light/Dark mode toggle
+- Clean agricultural-themed UI (green, earth tones)
+
+6) Admin Panel (simple protected route)
+- View all users
+- Verify farmers
+- Remove fake listings
+- See total crops posted per state
+
+7) Database Tables:
+
+USERS:
+- id
+- name
+- phone
+- state
+- role
+- password_hash
+- is_verified
+- created_at
+
+FARMS:
+- id
+- user_id
+- farm_size
+- main_crops
+- lga
+- created_at
+
+LISTINGS:
+- id
+- farmer_id
+- crop_name
+- category
+- quantity
+- unit
+- price
+- harvest_date
+- image_url
+- boosted
+- status
+- views
+- created_at
+
+8) Marketplace Logic:
+- Boosted listings sort first
+- Then newest listings
+- Increment view count when listing page opens
+
+9) Security:
+- Hash passwords
+- Protect dashboards with middleware
+- Prevent users from editing others’ listings
+
+10) Make the project clean, well-commented, and structured in folders:
+- routes
+- controllers
+- models
+- middleware
+- views
+- public
+
+11) Make UI modern and mobile-first because farmers will use phones.
+
+12) Include seed script to create demo users and listings.
+
+Prepare the project to run immediately with:
+npm install
+npm run dev
+
+Add clear instructions in README on how to:
+- Connect to Supabase
+- Replace image storage with Sia API later
