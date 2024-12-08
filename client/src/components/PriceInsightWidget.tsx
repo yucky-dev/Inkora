@@ -34,18 +34,18 @@ export function PriceInsightWidget({ cropName }: { cropName?: string }) {
       <CardContent>
         <div className="flex items-baseline gap-3">
           <span className="text-3xl font-bold font-display text-foreground">
-            ₦{data.averagePrice.toLocaleString()}
+            ${data.averagePrice.toLocaleString()}
           </span>
           <span className="text-sm font-medium text-muted-foreground">avg</span>
         </div>
         <div className="flex items-center gap-4 mt-3 text-sm">
           <div className="flex items-center gap-1 text-muted-foreground">
             <TrendingDown className="w-4 h-4 text-secondary" />
-            Min: <span className="font-semibold text-foreground">₦{data.minPrice.toLocaleString()}</span>
+            Min: <span className="font-semibold text-foreground">${data.minPrice.toLocaleString()}</span>
           </div>
           <div className="flex items-center gap-1 text-muted-foreground">
             <TrendingUp className="w-4 h-4 text-primary" />
-            Max: <span className="font-semibold text-foreground">₦{data.maxPrice.toLocaleString()}</span>
+            Max: <span className="font-semibold text-foreground">${data.maxPrice.toLocaleString()}</span>
           </div>
         </div>
       </CardContent>

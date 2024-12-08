@@ -113,14 +113,14 @@ export default function CreateListing() {
               </div>
 
               <div className="space-y-2 md:col-span-2">
-                <Label htmlFor="price">Price (₦) per {formData.unit}</Label>
+                <Label htmlFor="price">Price ($) per {formData.unit}</Label>
                 <div className="relative">
-                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">₦</span>
+                  <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground font-medium">$</span>
                   <Input 
                     id="price" 
                     type="number"
                     min="1"
-                    placeholder="e.g. 15000" 
+                    placeholder="e.g. 150" 
                     className="pl-8"
                     required 
                     value={formData.price}

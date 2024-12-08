@@ -110,7 +110,7 @@ export default function ListingDetail() {
           </h1>
           
           <div className="flex items-end gap-3 mb-8">
-            <span className="text-4xl font-bold text-primary">₦{Number(listing.price).toLocaleString()}</span>
+            <span className="text-4xl font-bold text-primary">${Number(listing.price).toLocaleString()}</span>
             <span className="text-lg text-muted-foreground font-medium pb-1">per {listing.unit}</span>
           </div>
 

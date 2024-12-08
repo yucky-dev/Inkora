@@ -54,7 +54,7 @@ export function ListingCard({ data }: { data: ListingWithFarmer }) {
               {listing.cropName}
             </h3>
             <div className="text-right">
-              <p className="font-bold text-lg text-primary">₦{Number(listing.price).toLocaleString()}</p>
+              <p className="font-bold text-lg text-primary">${Number(listing.price).toLocaleString()}</p>
               <p className="text-xs text-muted-foreground font-medium">per {listing.unit}</p>
             </div>
           </div>

@@ -148,7 +148,7 @@ export default function Dashboard() {
                             )}
                             {item.boosted && <Badge variant="secondary" className="border-none shadow-sm">Boosted</Badge>}
                           </div>
-                          <p className="text-sm font-semibold text-primary">₦{Number(item.price).toLocaleString()} <span className="text-muted-foreground font-normal">/ {item.unit}</span></p>
+                          <p className="text-sm font-semibold text-primary">${Number(item.price).toLocaleString()} <span className="text-muted-foreground font-normal">/ {item.unit}</span></p>
                           <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
                             <Eye className="w-3 h-3" /> {item.views || 0} views
                           </p>
