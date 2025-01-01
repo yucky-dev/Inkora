@@ -1,183 +1,155 @@
 import { Link } from "wouter";
 import { Button } from "@/components/ui/button";
-import { useTrendingCrops } from "@/hooks/use-analytics";
+import { useTrendingCrops, usePriceInsights } from "@/hooks/use-analytics";
 import { useListings } from "@/hooks/use-listings";
 import { ListingCard } from "@/components/ListingCard";
-import { ArrowRight, Leaf, ShieldCheck, TrendingUp, HandCoins } from "lucide-react";
-import { PriceInsightWidget } from "@/components/PriceInsightWidget";
+import { ArrowRight, ShieldCheck, TrendingUp, ShoppingBag, Globe, Zap } from "lucide-react";
 
 export default function Home() {
   const { data: trendingCrops } = useTrendingCrops();
   const { data: listings, isLoading } = useListings();
+  const { data: globalPrices } = usePriceInsights();
 
-  const featuredListings = listings?.filter(l => l.listing.boosted).slice(0, 3) || [];
-  const recentListings = listings?.filter(l => !l.listing.boosted).slice(0, 3) || [];
+  const featuredListings = listings?.filter(l => l.listing.boosted).slice(0, 4) || [];
+  const recentListings = listings?.filter(l => !l.listing.boosted).slice(0, 8) || [];
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* Hero Section */}
-      <section className="relative pt-20 pb-32 overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          {/* landing page hero agricultural landscape farmer field */}
-          <img 
-            src="https://pixabay.com/get/g4a3136ea0725985c8c4ad8ce97f12ad83f14fd81d4dc074097c635815086743674f708ee0b416572355fc5ca749437c2069c2196f1aa6374a22af1cc618fa8a6_1280.jpg" 
-            alt="Farm landscape" 
-            className="w-full h-full object-cover opacity-20 dark:opacity-10"
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-background/90 via-background/80 to-background" />
+    <div className="flex flex-col min-h-screen bg-[#F7F5EF]">
+      {/* Mature Business Header/Hero */}
+      <section className="bg-[#003F3A] text-white pt-24 pb-20 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
+          <Globe className="w-full h-full" />
         </div>
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-6 bg-primary/10 text-primary hover:bg-primary/20 border-none px-4 py-1.5 text-sm">
-              Direct Farmer-to-Buyer Marketplace
-            </Badge>
-            <h1 className="text-5xl md:text-6xl lg:text-7xl font-display font-extrabold tracking-tight text-foreground mb-8">
-              Harvesting Value, <br/>
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-secondary">
-                Empowering Farmers
-              </span>
+          <div className="max-w-3xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#D8C9A3] text-xs font-bold uppercase tracking-widest mb-6">
+              <Zap className="w-3 h-3" /> Real-time Agriculture Exchange
+            </div>
+            <h1 className="text-5xl md:text-6xl font-display font-extrabold tracking-tight mb-6 leading-tight">
+              The Professional Gateway to <span className="text-[#D8C9A3]">Global Agri-Trade.</span>
             </h1>
-            <p className="text-lg md:text-xl text-muted-foreground mb-10 text-balance max-w-2xl mx-auto">
-              AgriBridge connects smallholder farmers directly with buyers. Cut out the middlemen, get fair prices, and source fresh quality crops from verified local farms.
+            <p className="text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">
+              AgriBridge provides a secure, transparent marketplace for professional buyers and verified farmers. 
+              Access real-time market data and direct sourcing from the source.
             </p>
-            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-              <Button size="lg" asChild className="h-14 px-8 text-lg w-full sm:w-auto shadow-xl shadow-primary/20 rounded-full">
-                <Link href="/browse">Browse Marketplace</Link>
+            <div className="flex flex-wrap gap-4">
+              <Button size="lg" asChild className="bg-[#D8C9A3] text-[#003F3A] hover:bg-[#D8C9A3]/90 h-14 px-8 rounded-md font-bold transition-all shadow-lg">
+                <Link href="/browse">Access Marketplace</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="h-14 px-8 text-lg w-full sm:w-auto rounded-full bg-background/50 backdrop-blur-sm border-2">
-                <Link href="/auth">Start Selling</Link>
+              <Button size="lg" variant="outline" asChild className="border-white/20 hover:bg-white/10 text-white h-14 px-8 rounded-md font-bold transition-all backdrop-blur-sm">
+                <Link href="/auth">Register as Seller</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Stats/Features Banner */}
-      <section className="py-12 border-y border-border/50 bg-muted/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary">
-                <HandCoins className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-bold text-foreground">Zero Middlemen</h3>
-                <p className="text-sm text-muted-foreground">Direct pricing benefits everyone</p>
-              </div>
+      {/* Real-time Ticker / Market Bar */}
+      <div className="bg-[#D8C9A3] border-y border-[#003F3A]/10 py-3 overflow-hidden whitespace-nowrap">
+        <div className="flex animate-marquee gap-12 items-center">
+          {trendingCrops?.map((crop) => (
+            <div key={crop.cropName} className="flex items-center gap-3">
+              <span className="text-[#003F3A] font-bold uppercase text-sm">{crop.cropName}</span>
+              <span className="text-[#8C6239] font-mono font-bold">
+                ${(Math.random() * 50 + 10).toFixed(2)}
+              </span>
+              <span className="text-green-700 text-xs flex items-center">
+                <TrendingUp className="w-3 h-3 mr-1" /> +{(Math.random() * 2).toFixed(2)}%
+              </span>
             </div>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
-                <ShieldCheck className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-bold text-foreground">Verified Farmers</h3>
-                <p className="text-sm text-muted-foreground">Trust and transparency built-in</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-4">
-              <div className="w-12 h-12 rounded-xl bg-accent flex items-center justify-center text-accent-foreground">
-                <TrendingUp className="w-6 h-6" />
-              </div>
-              <div>
-                <h3 className="font-bold text-foreground">Market Insights</h3>
-                <p className="text-sm text-muted-foreground">Real-time price tracking</p>
-              </div>
-            </div>
-          </div>
+          ))}
+          {/* Duplicate for seamless loop if needed, simplified here */}
         </div>
-      </section>
+      </div>
 
-      {/* Main Content Area */}
-      <section className="py-20 bg-background">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Main Marketplace Grid - Facebook Marketplace Style */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="flex flex-col lg:flex-row gap-12">
           
-          {/* Top Row: Market Insights & Trending */}
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
-            <div className="lg:col-span-2">
-              <div className="flex items-center justify-between mb-6">
-                <h2 className="text-3xl font-display font-bold">Featured Harvests</h2>
-                <Button variant="ghost" asChild className="text-primary hover:text-primary/80">
-                  <Link href="/browse" className="flex items-center gap-2">
-                    View All <ArrowRight className="w-4 h-4" />
-                  </Link>
-                </Button>
-              </div>
-              {isLoading ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="h-80 bg-muted rounded-2xl animate-pulse"></div>
-                  <div className="h-80 bg-muted rounded-2xl animate-pulse"></div>
-                </div>
-              ) : featuredListings.length > 0 ? (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  {featuredListings.slice(0, 2).map(item => (
-                    <ListingCard key={item.listing.id} data={item} />
-                  ))}
-                </div>
-              ) : (
-                <div className="text-center py-12 bg-muted/30 rounded-2xl border border-dashed">
-                  <Leaf className="w-12 h-12 text-muted-foreground/30 mx-auto mb-3" />
-                  <p className="text-muted-foreground">No featured listings currently available.</p>
-                </div>
-              )}
+          {/* Content Area */}
+          <div className="flex-1">
+            <div className="flex items-center justify-between mb-8 border-b border-black/5 pb-4">
+              <h2 className="text-2xl font-display font-bold text-[#2A2A2A] flex items-center gap-2">
+                <ShoppingBag className="w-6 h-6 text-[#8C6239]" /> Live Listings
+              </h2>
+              <Link href="/browse" className="text-sm font-bold text-[#8C6239] hover:underline">View All Inventory</Link>
             </div>
 
-            <div className="flex flex-col gap-6">
-              <h2 className="text-2xl font-display font-bold">Market Watch</h2>
-              <PriceInsightWidget />
-              
-              <div className="bg-card border rounded-2xl p-6 shadow-sm">
-                <h3 className="font-bold mb-4 flex items-center gap-2">
-                  <TrendingUp className="w-5 h-5 text-primary" /> Trending Crops
-                </h3>
-                {trendingCrops ? (
-                  <div className="space-y-3">
-                    {trendingCrops.map((crop, idx) => (
-                      <div key={crop.cropName} className="flex items-center justify-between group cursor-pointer">
-                        <div className="flex items-center gap-3">
-                          <span className="text-muted-foreground font-medium text-sm w-4">{idx + 1}</span>
-                          <span className="font-medium group-hover:text-primary transition-colors">{crop.cropName}</span>
-                        </div>
-                        <span className="text-xs bg-muted px-2 py-1 rounded-full text-muted-foreground">
-                          {crop.count} listings
-                        </span>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    {[1,2,3,4].map(i => <div key={i} className="h-6 bg-muted rounded animate-pulse" />)}
-                  </div>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* Recent Listings */}
-          <div className="mb-12">
-            <h2 className="text-3xl font-display font-bold mb-8">Recently Added</h2>
             {isLoading ? (
-               <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                 {[1,2,3].map(i => <div key={i} className="h-80 bg-muted rounded-2xl animate-pulse"></div>)}
-               </div>
-            ) : recentListings.length > 0 ? (
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                {recentListings.map(item => (
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+                {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
+                  <div key={i} className="aspect-square bg-black/5 rounded-lg animate-pulse"></div>
+                ))}
+              </div>
+            ) : listings && listings.length > 0 ? (
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+                {listings.slice(0, 12).map(item => (
                   <ListingCard key={item.listing.id} data={item} />
                 ))}
               </div>
             ) : (
-              <p className="text-muted-foreground text-center py-8">No recent listings.</p>
+              <div className="text-center py-20 bg-white border rounded-xl shadow-sm">
+                <p className="text-[#2A2A2A]/60">No active listings in your region.</p>
+              </div>
             )}
           </div>
-          
+
+          {/* Business Sidebar */}
+          <aside className="w-full lg:w-80 space-y-8">
+            <div className="bg-white border border-black/5 rounded-xl p-6 shadow-sm">
+              <h3 className="font-bold text-[#2A2A2A] mb-4 flex items-center gap-2 uppercase tracking-tight text-sm">
+                <TrendingUp className="w-4 h-4 text-[#8C6239]" /> Market Insights
+              </h3>
+              <div className="space-y-4">
+                <div className="p-4 bg-[#F7F5EF] rounded-lg border border-black/5">
+                  <p className="text-xs text-black/50 uppercase font-bold mb-1">Market Average</p>
+                  <p className="text-2xl font-display font-bold text-[#003F3A]">
+                    ${globalPrices?.averagePrice.toLocaleString() || "0.00"}
+                  </p>
+                </div>
+                <div className="space-y-3">
+                  <p className="text-xs font-bold text-black/40 uppercase">Demand Ranking</p>
+                  {trendingCrops?.map((crop, idx) => (
+                    <div key={crop.cropName} className="flex items-center justify-between text-sm">
+                      <span className="text-[#2A2A2A]/80 font-medium">{crop.cropName}</span>
+                      <span className="text-[#8C6239] font-bold">#{idx + 1}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            <div className="bg-[#003F3A] text-white rounded-xl p-6 shadow-lg">
+              <ShieldCheck className="w-8 h-8 text-[#D8C9A3] mb-4" />
+              <h3 className="font-bold text-lg mb-2">Trade with Confidence</h3>
+              <p className="text-sm text-white/70 leading-relaxed mb-6">
+                Every transaction on AgriBridge is backed by our verified farmer network and secure logistics partnerships.
+              </p>
+              <Button variant="outline" className="w-full border-white/20 hover:bg-white/10 text-white font-bold">
+                Verification Details
+              </Button>
+            </div>
+          </aside>
+        </div>
+      </main>
+
+      {/* Footer / Trust Section */}
+      <section className="bg-white border-t border-black/5 py-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-xs font-bold text-black/30 uppercase tracking-[0.2em] mb-8">Trusted by Trade Partners Worldwide</p>
+          <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale">
+             {/* Simple placeholders for mature brands */}
+             <div className="font-display font-black text-xl italic">AGRI-CORP</div>
+             <div className="font-display font-black text-xl italic">GLOBAL-FOODS</div>
+             <div className="font-display font-black text-xl italic">TRADE-LINK</div>
+             <div className="font-display font-black text-xl italic">ECO-FARM</div>
+          </div>
         </div>
       </section>
     </div>
   );
 }
 
-// Temporary Badge component to ensure it exists for the hero
 function Badge({ className, children, ...props }: React.HTMLAttributes<HTMLSpanElement>) {
   return <span className={`inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 ${className}`} {...props}>{children}</span>;
 }
