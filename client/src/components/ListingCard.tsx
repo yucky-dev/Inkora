@@ -1,7 +1,7 @@
 import { Link } from "wouter";
 import { type z } from "zod";
 import { type listingWithFarmerSchema } from "@shared/routes";
-import { MapPin, Sprout, Star, CheckCircle, Clock } from "lucide-react";
+import { MapPin, Sprout, CheckCircle, Zap } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 type ListingWithFarmer = z.infer<typeof listingWithFarmerSchema>;
@@ -36,7 +36,13 @@ export function ListingCard({ data }: { data: ListingWithFarmer }) {
         </div>
 
         <div className="p-3 flex flex-col flex-grow">
-          <p className="font-bold text-[#2A2A2A] text-lg mb-0.5">${Number(listing.price).toLocaleString()}</p>
+          <div className="flex items-center justify-between mb-1">
+            <p className="font-bold text-[#2A2A2A] text-lg">${Number(listing.price).toLocaleString()}</p>
+            <div className="flex items-center gap-1 px-1.5 py-0.5 bg-green-50 rounded border border-green-100">
+              <Zap className="w-3 h-3 text-green-700" />
+              <span className="text-[10px] font-black text-green-700 uppercase tracking-tighter">Live</span>
+            </div>
+          </div>
           <h3 className="text-sm text-[#2A2A2A]/80 font-medium line-clamp-1 mb-2">
             {listing.cropName}
           </h3>

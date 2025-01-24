@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useTrendingCrops, usePriceInsights } from "@/hooks/use-analytics";
 import { useListings } from "@/hooks/use-listings";
 import { ListingCard } from "@/components/ListingCard";
-import { ArrowRight, ShieldCheck, TrendingUp, ShoppingBag, Globe, Zap } from "lucide-react";
+import { ShoppingBag, Globe, Zap, ShieldCheck } from "lucide-react";
 
 export default function Home() {
   const { data: trendingCrops } = useTrendingCrops();
@@ -11,122 +11,110 @@ export default function Home() {
   const { data: globalPrices } = usePriceInsights();
 
   const featuredListings = listings?.filter(l => l.listing.boosted).slice(0, 4) || [];
-  const recentListings = listings?.filter(l => !l.listing.boosted).slice(0, 8) || [];
 
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F5EF]">
-      {/* Mature Business Header/Hero */}
-      <section className="bg-[#003F3A] text-white pt-24 pb-20 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-1/3 h-full opacity-10 pointer-events-none">
-          <Globe className="w-full h-full" />
+      {/* Mature Business Header/Hero with Amazing Agricultural Band Background */}
+      <section className="relative pt-32 pb-24 overflow-hidden min-h-[500px] flex items-center">
+        <div className="absolute inset-0 z-0">
+          <img 
+            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            alt="Diligence and Integrity in Agriculture" 
+            className="w-full h-full object-cover grayscale-[0.2] brightness-[0.4]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#003F3A]/90 to-transparent" />
         </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-[#D8C9A3] text-xs font-bold uppercase tracking-widest mb-6">
-              <Zap className="w-3 h-3" /> Real-time Agriculture Exchange
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D8C9A3]/20 text-[#D8C9A3] text-xs font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-md border border-[#D8C9A3]/30">
+              <ShieldCheck className="w-3 h-3" /> Diligence • Integrity • Trust
             </div>
-            <h1 className="text-5xl md:text-6xl font-display font-extrabold tracking-tight mb-6 leading-tight">
-              The Professional Gateway to <span className="text-[#D8C9A3]">Global Agri-Trade.</span>
+            <h1 className="text-5xl md:text-7xl font-display font-extrabold tracking-tight mb-8 leading-[1.1]">
+              The Professional <br/>
+              Standard in <span className="text-[#D8C9A3]">Agri-Trade.</span>
             </h1>
-            <p className="text-xl text-white/80 mb-10 max-w-2xl leading-relaxed">
-              AgriBridge provides a secure, transparent marketplace for professional buyers and verified farmers. 
-              Access real-time market data and direct sourcing from the source.
+            <p className="text-xl text-white/80 mb-10 max-w-2xl leading-relaxed font-medium">
+              AgriBridge establishes a foundation of integrity, connecting institutional buyers with verified farmers through a transparent, high-standard exchange platform.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Button size="lg" asChild className="bg-[#D8C9A3] text-[#003F3A] hover:bg-[#D8C9A3]/90 h-14 px-8 rounded-md font-bold transition-all shadow-lg">
-                <Link href="/browse">Access Marketplace</Link>
+              <Button size="lg" asChild className="bg-[#D8C9A3] text-[#003F3A] hover:bg-[#D8C9A3]/90 h-14 px-8 rounded-md font-bold transition-all shadow-xl">
+                <Link href="/browse">Enter Marketplace</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="border-white/20 hover:bg-white/10 text-white h-14 px-8 rounded-md font-bold transition-all backdrop-blur-sm">
-                <Link href="/auth">Register as Seller</Link>
+              <Button size="lg" variant="outline" asChild className="border-white/30 hover:bg-white/10 text-white h-14 px-8 rounded-md font-bold transition-all backdrop-blur-md">
+                <Link href="/auth">Farmer Registration</Link>
               </Button>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Real-time Ticker / Market Bar */}
-      <div className="bg-[#D8C9A3] border-y border-[#003F3A]/10 py-3 overflow-hidden whitespace-nowrap">
-        <div className="flex animate-marquee gap-12 items-center">
-          {trendingCrops?.map((crop) => (
-            <div key={crop.cropName} className="flex items-center gap-3">
-              <span className="text-[#003F3A] font-bold uppercase text-sm">{crop.cropName}</span>
-              <span className="text-[#8C6239] font-mono font-bold">
-                ${(Math.random() * 50 + 10).toFixed(2)}
-              </span>
-              <span className="text-green-700 text-xs flex items-center">
-                <TrendingUp className="w-3 h-3 mr-1" /> +{(Math.random() * 2).toFixed(2)}%
-              </span>
-            </div>
-          ))}
-          {/* Duplicate for seamless loop if needed, simplified here */}
-        </div>
-      </div>
-
-      {/* Main Marketplace Grid - Facebook Marketplace Style */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="flex flex-col lg:flex-row gap-12">
+      {/* Main Marketplace Grid */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="flex flex-col lg:flex-row gap-16">
           
           {/* Content Area */}
           <div className="flex-1">
-            <div className="flex items-center justify-between mb-8 border-b border-black/5 pb-4">
-              <h2 className="text-2xl font-display font-bold text-[#2A2A2A] flex items-center gap-2">
-                <ShoppingBag className="w-6 h-6 text-[#8C6239]" /> Live Listings
+            <div className="flex items-center justify-between mb-10 border-b border-black/10 pb-6">
+              <h2 className="text-3xl font-display font-bold text-[#2A2A2A] flex items-center gap-3">
+                <ShoppingBag className="w-8 h-8 text-[#8C6239]" /> Verified Listings
               </h2>
-              <Link href="/browse" className="text-sm font-bold text-[#8C6239] hover:underline">View All Inventory</Link>
+              <Link href="/browse" className="text-sm font-bold text-[#8C6239] hover:underline uppercase tracking-widest">Market Directory</Link>
             </div>
 
             {isLoading ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-4">
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
                 {[1, 2, 3, 4, 5, 6, 7, 8].map(i => (
                   <div key={i} className="aspect-square bg-black/5 rounded-lg animate-pulse"></div>
                 ))}
               </div>
             ) : listings && listings.length > 0 ? (
-              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-8">
                 {listings.slice(0, 12).map(item => (
                   <ListingCard key={item.listing.id} data={item} />
                 ))}
               </div>
             ) : (
-              <div className="text-center py-20 bg-white border rounded-xl shadow-sm">
-                <p className="text-[#2A2A2A]/60">No active listings in your region.</p>
+              <div className="text-center py-20 bg-white border border-black/5 rounded-xl shadow-sm">
+                <p className="text-[#2A2A2A]/60">No active verified listings at this time.</p>
               </div>
             )}
           </div>
 
           {/* Business Sidebar */}
-          <aside className="w-full lg:w-80 space-y-8">
-            <div className="bg-white border border-black/5 rounded-xl p-6 shadow-sm">
-              <h3 className="font-bold text-[#2A2A2A] mb-4 flex items-center gap-2 uppercase tracking-tight text-sm">
-                <TrendingUp className="w-4 h-4 text-[#8C6239]" /> Market Insights
+          <aside className="w-full lg:w-80 space-y-10">
+            <div className="bg-white border border-black/5 rounded-xl p-8 shadow-sm">
+              <h3 className="font-bold text-[#2A2A2A] mb-6 flex items-center gap-2 uppercase tracking-[0.1em] text-xs">
+                <Zap className="w-4 h-4 text-[#8C6239]" /> Market Data
               </h3>
-              <div className="space-y-4">
-                <div className="p-4 bg-[#F7F5EF] rounded-lg border border-black/5">
-                  <p className="text-xs text-black/50 uppercase font-bold mb-1">Market Average</p>
-                  <p className="text-2xl font-display font-bold text-[#003F3A]">
+              <div className="space-y-6">
+                <div className="p-5 bg-[#F7F5EF] rounded-lg border border-black/5">
+                  <p className="text-[10px] text-black/50 uppercase font-black mb-2 tracking-widest">Global Index</p>
+                  <p className="text-3xl font-display font-bold text-[#003F3A]">
                     ${globalPrices?.averagePrice.toLocaleString() || "0.00"}
                   </p>
                 </div>
-                <div className="space-y-3">
-                  <p className="text-xs font-bold text-black/40 uppercase">Demand Ranking</p>
+                <div className="space-y-4">
+                  <p className="text-[10px] font-black text-black/40 uppercase tracking-widest">Priority Crops</p>
                   {trendingCrops?.map((crop, idx) => (
-                    <div key={crop.cropName} className="flex items-center justify-between text-sm">
-                      <span className="text-[#2A2A2A]/80 font-medium">{crop.cropName}</span>
-                      <span className="text-[#8C6239] font-bold">#{idx + 1}</span>
+                    <div key={crop.cropName} className="flex items-center justify-between text-sm border-b border-black/5 pb-2">
+                      <span className="text-[#2A2A2A]/80 font-bold">{crop.cropName}</span>
+                      <span className="text-[#8C6239] font-black italic">TOP {idx + 1}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="bg-[#003F3A] text-white rounded-xl p-6 shadow-lg">
-              <ShieldCheck className="w-8 h-8 text-[#D8C9A3] mb-4" />
-              <h3 className="font-bold text-lg mb-2">Trade with Confidence</h3>
-              <p className="text-sm text-white/70 leading-relaxed mb-6">
-                Every transaction on AgriBridge is backed by our verified farmer network and secure logistics partnerships.
+            <div className="bg-[#003F3A] text-white rounded-xl p-8 shadow-2xl relative overflow-hidden">
+               <Globe className="absolute -bottom-10 -right-10 w-40 h-40 opacity-10" />
+              <ShieldCheck className="w-10 h-10 text-[#D8C9A3] mb-6" />
+              <h3 className="font-bold text-xl mb-3">Institutional Integrity</h3>
+              <p className="text-sm text-white/70 leading-relaxed mb-8">
+                Our platform enforces strict compliance and quality standards to ensure every trade is executed with complete transparency.
               </p>
-              <Button variant="outline" className="w-full border-white/20 hover:bg-white/10 text-white font-bold">
-                Verification Details
+              <Button variant="outline" className="w-full border-white/20 hover:bg-white/10 text-white font-bold h-12">
+                Compliance Standards
               </Button>
             </div>
           </aside>
@@ -134,15 +122,14 @@ export default function Home() {
       </main>
 
       {/* Footer / Trust Section */}
-      <section className="bg-white border-t border-black/5 py-12">
+      <section className="bg-white border-t border-black/10 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-xs font-bold text-black/30 uppercase tracking-[0.2em] mb-8">Trusted by Trade Partners Worldwide</p>
-          <div className="flex flex-wrap justify-center gap-12 opacity-40 grayscale">
-             {/* Simple placeholders for mature brands */}
-             <div className="font-display font-black text-xl italic">AGRI-CORP</div>
-             <div className="font-display font-black text-xl italic">GLOBAL-FOODS</div>
-             <div className="font-display font-black text-xl italic">TRADE-LINK</div>
-             <div className="font-display font-black text-xl italic">ECO-FARM</div>
+          <p className="text-[10px] font-black text-black/30 uppercase tracking-[0.4em] mb-12">Verified Global Trade Partners</p>
+          <div className="flex flex-wrap justify-center gap-16 opacity-30 grayscale contrast-125">
+             <div className="font-display font-black text-2xl tracking-tighter">AGRI-STRAT</div>
+             <div className="font-display font-black text-2xl tracking-tighter">CORP-GRAIN</div>
+             <div className="font-display font-black text-2xl tracking-tighter">TERRA-EX</div>
+             <div className="font-display font-black text-2xl tracking-tighter">PRIME-HARVEST</div>
           </div>
         </div>
       </section>
