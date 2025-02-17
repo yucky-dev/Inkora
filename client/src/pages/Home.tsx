@@ -5,6 +5,8 @@ import { useListings } from "@/hooks/use-listings";
 import { ListingCard } from "@/components/ListingCard";
 import { ShoppingBag, Globe, Zap, ShieldCheck } from "lucide-react";
 
+import heroImage from "@assets/Picsart_26-03-06_09-33-17-836_1772786969521.jpg";
+
 export default function Home() {
   const { data: trendingCrops } = useTrendingCrops();
   const { data: listings, isLoading } = useListings();
@@ -15,33 +17,33 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F5EF]">
       {/* Mature Business Header/Hero with Amazing Agricultural Band Background */}
-      <section className="relative pt-32 pb-24 overflow-hidden min-h-[500px] flex items-center">
+      <section className="relative pt-32 pb-24 overflow-hidden min-h-[600px] flex items-center">
         <div className="absolute inset-0 z-0">
           <img 
-            src="https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80" 
+            src={heroImage} 
             alt="Diligence and Integrity in Agriculture" 
-            className="w-full h-full object-cover grayscale-[0.2] brightness-[0.4]"
+            className="w-full h-full object-cover brightness-[0.45]"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-[#003F3A]/90 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#003F3A]/80 via-[#003F3A]/40 to-transparent" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
           <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D8C9A3]/20 text-[#D8C9A3] text-xs font-bold uppercase tracking-[0.2em] mb-6 backdrop-blur-md border border-[#D8C9A3]/30">
-              <ShieldCheck className="w-3 h-3" /> Diligence • Integrity • Trust
+            <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D8C9A3]/10 text-[#D8C9A3] text-xs font-bold uppercase tracking-[0.2em] mb-8 backdrop-blur-md border border-[#D8C9A3]/20">
+              <ShieldCheck className="w-4 h-4" /> Diligence • Integrity • Trust
             </div>
-            <h1 className="text-5xl md:text-7xl font-display font-extrabold tracking-tight mb-8 leading-[1.1]">
+            <h1 className="text-5xl md:text-7xl font-display font-extrabold tracking-tight mb-8 leading-[1.1] drop-shadow-sm">
               The Professional <br/>
               Standard in <span className="text-[#D8C9A3]">Agri-Trade.</span>
             </h1>
-            <p className="text-xl text-white/80 mb-10 max-w-2xl leading-relaxed font-medium">
+            <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl leading-relaxed font-medium drop-shadow-sm">
               AgriBridge establishes a foundation of integrity, connecting institutional buyers with verified farmers through a transparent, high-standard exchange platform.
             </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" asChild className="bg-[#D8C9A3] text-[#003F3A] hover:bg-[#D8C9A3]/90 h-14 px-8 rounded-md font-bold transition-all shadow-xl">
+            <div className="flex flex-wrap gap-5">
+              <Button size="lg" asChild className="bg-[#D8C9A3] text-[#003F3A] hover:bg-[#D8C9A3]/90 h-16 px-10 rounded-md font-bold transition-all shadow-2xl text-lg">
                 <Link href="/browse">Enter Marketplace</Link>
               </Button>
-              <Button size="lg" variant="outline" asChild className="border-white/30 hover:bg-white/10 text-white h-14 px-8 rounded-md font-bold transition-all backdrop-blur-md">
+              <Button size="lg" variant="outline" asChild className="border-white/40 hover:bg-white/10 text-white h-16 px-10 rounded-md font-bold transition-all backdrop-blur-md text-lg">
                 <Link href="/auth">Farmer Registration</Link>
               </Button>
             </div>
