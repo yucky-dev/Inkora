@@ -169,6 +169,21 @@ export class DatabaseStorage implements IStorage {
     return updated;
   }
 
+  async upvoteUser(id: number, type: 'deliverySpeed' | 'performance'): Promise<User> {
+    const user = await this.getUser(id);
+    if (!user) throw new Error("User not found");
+    
+    const currentValue = type === 'deliverySpeed' 
+      ? (user.deliverySpeedVotes || 0) 
+      : (user.performanceVotes || 0);
+
+    const [updated] = await db.update(users)
+      .set({ [type === 'deliverySpeed' ? 'deliverySpeedVotes' : 'performanceVotes']: currentValue + 1 })
+      .where(eq(users.id, id))
+      .returning();
+    return updated;
+  }
+
   async getTotalCropsPerState(): Promise<Record<string, number>> {
     const result = await db.execute(
       sql`SELECT u.state, COUNT(l.id) as count FROM users u JOIN listings l ON u.id = l.farmer_id GROUP BY u.state`

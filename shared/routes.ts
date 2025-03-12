@@ -193,6 +193,20 @@ export const api = {
         401: errorSchemas.unauthorized,
       },
     }
+  },
+  votes: {
+    upvote: {
+      method: 'POST' as const,
+      path: '/api/users/:id/upvote' as const,
+      input: z.object({
+        type: z.enum(['deliverySpeed', 'performance']),
+      }),
+      responses: {
+        200: z.object({ deliverySpeedVotes: z.number(), performanceVotes: z.number() }),
+        401: errorSchemas.unauthorized,
+        404: errorSchemas.notFound,
+      },
+    }
   }
 };
 

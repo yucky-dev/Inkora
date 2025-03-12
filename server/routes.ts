@@ -258,6 +258,24 @@ export async function registerRoutes(
     }
   });
 
+  // Upvote Routes
+  app.post(api.votes.upvote.path, requireAuth, async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const { type } = api.votes.upvote.input.parse(req.body);
+      const user = await storage.upvoteUser(id, type);
+      res.status(200).json({ 
+        deliverySpeedVotes: user.deliverySpeedVotes || 0, 
+        performanceVotes: user.performanceVotes || 0 
+      });
+    } catch (err) {
+      if (err instanceof z.ZodError) {
+        return res.status(400).json({ message: err.errors[0].message });
+      }
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
   // Seed DB with demo data (run async to not block startup)
   seedDatabase().catch(console.error);
 

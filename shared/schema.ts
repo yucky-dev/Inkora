@@ -11,6 +11,8 @@ export const users = pgTable("users", {
   role: text("role").notNull(), // 'farmer', 'buyer', 'admin'
   passwordHash: text("password_hash").notNull(),
   isVerified: boolean("is_verified").default(false),
+  deliverySpeedVotes: integer("delivery_speed_votes").default(0),
+  performanceVotes: integer("performance_votes").default(0),
   createdAt: timestamp("created_at").defaultNow(),
 });
 

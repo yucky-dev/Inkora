@@ -4,14 +4,18 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MapPin, Phone, MessageCircle, Clock, CheckCircle, Package, Scale, ArrowLeft } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Clock, CheckCircle, Package, Scale, ArrowLeft, ShieldCheck, Zap, ThumbsUp } from "lucide-react";
 import { Link } from "wouter";
+import { useUpvoteUser } from "@/hooks/use-listings";
+import { useToast } from "@/hooks/use-toast";
 
 export default function ListingDetail() {
   const { id } = useParams();
   const listingId = parseInt(id || "0");
   const { data, isLoading } = useListing(listingId);
   const recordView = useRecordView();
+  const upvote = useUpvoteUser();
+  const { toast } = useToast();
 
   useEffect(() => {
     if (listingId) {
@@ -48,6 +52,14 @@ export default function ListingDetail() {
 
   const { listing, farmer, farm } = data;
   const whatsappUrl = `https://wa.me/${farmer.phone.replace(/[^0-9]/g, '')}?text=Hi%20${farmer.name},%20I%20am%20interested%20in%20your%20${listing.cropName}%20listing%20on%20AgriBridge.`;
+
+  const handleUpvote = (type: 'deliverySpeed' | 'performance') => {
+    upvote.mutate({ userId: farmer.id, type }, {
+      onSuccess: () => {
+        toast({ title: "Vote Recorded", description: `Thank you for rating ${farmer.name}'s ${type === 'deliverySpeed' ? 'delivery speed' : 'performance'}!` });
+      }
+    });
+  };
 
   return (
     <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
@@ -102,8 +114,12 @@ export default function ListingDetail() {
 
         {/* Right Col: Details & Action */}
         <div className="flex flex-col">
-          <div className="mb-2 text-sm text-primary font-bold tracking-wider uppercase">
+          <div className="mb-2 text-sm text-primary font-bold tracking-wider uppercase flex items-center gap-2">
             {listing.category}
+            <div className="flex items-center gap-1 px-1.5 py-0.5 bg-green-50 rounded border border-green-100">
+              <Zap className="w-3 h-3 text-green-700" />
+              <span className="text-[10px] font-black text-green-700 uppercase tracking-tighter">Live Price</span>
+            </div>
           </div>
           <h1 className="text-4xl md:text-5xl font-display font-extrabold text-foreground mb-4">
             {listing.cropName}
@@ -135,7 +151,24 @@ export default function ListingDetail() {
 
           {/* Farmer Card */}
           <div className="bg-card border rounded-2xl p-6 shadow-lg shadow-black/5 mb-8 flex-1">
-            <h3 className="font-display font-bold text-lg mb-6 text-foreground">Seller Information</h3>
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="font-display font-bold text-lg text-foreground">Seller Information</h3>
+              <div className="flex gap-2">
+                <div className="text-right">
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase">Performance</p>
+                  <p className="text-xs font-bold text-primary flex items-center justify-end gap-1">
+                    <ThumbsUp className="w-3 h-3" /> {farmer.performanceVotes || 0}
+                  </p>
+                </div>
+                <div className="text-right">
+                  <p className="text-[10px] font-bold text-muted-foreground uppercase">Speed</p>
+                  <p className="text-xs font-bold text-secondary flex items-center justify-end gap-1">
+                    <Zap className="w-3 h-3" /> {farmer.deliverySpeedVotes || 0}
+                  </p>
+                </div>
+              </div>
+            </div>
+            
             <div className="flex items-center gap-4 mb-8">
               <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary font-bold text-2xl border-2 border-primary/20">
                 {farmer.name.charAt(0)}
@@ -151,7 +184,7 @@ export default function ListingDetail() {
               </div>
             </div>
 
-            <div className="flex flex-col gap-3">
+            <div className="flex flex-col gap-3 mb-6">
               <Button asChild size="lg" className="w-full h-14 text-lg bg-[#25D366] hover:bg-[#128C7E] text-white shadow-lg shadow-[#25D366]/20 group">
                 <a href={whatsappUrl} target="_blank" rel="noopener noreferrer">
                   <MessageCircle className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform" /> Chat on WhatsApp
@@ -162,6 +195,30 @@ export default function ListingDetail() {
                   <Phone className="w-5 h-5 mr-2" /> Call Farmer
                 </a>
               </Button>
+            </div>
+
+            <div className="border-t pt-6">
+              <p className="text-xs font-bold text-muted-foreground uppercase mb-4 tracking-widest text-center">Rate this seller</p>
+              <div className="grid grid-cols-2 gap-3">
+                <Button 
+                  variant="secondary" 
+                  size="sm" 
+                  className="text-[10px] uppercase font-bold h-10"
+                  onClick={() => handleUpvote('performance')}
+                  disabled={upvote.isPending}
+                >
+                  High Performance
+                </Button>
+                <Button 
+                  variant="outline" 
+                  size="sm" 
+                  className="text-[10px] uppercase font-bold h-10 border-secondary/30 text-secondary"
+                  onClick={() => handleUpvote('deliverySpeed')}
+                  disabled={upvote.isPending}
+                >
+                  Fast Delivery
+                </Button>
+              </div>
             </div>
             
             {!farmer.isVerified && (
