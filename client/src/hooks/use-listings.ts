@@ -144,3 +144,24 @@ export function useRecordView() {
     },
   });
 }
+
+export function useUpvoteUser() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async ({ userId, type }: { userId: number; type: 'deliverySpeed' | 'performance' }) => {
+      const url = buildUrl(api.votes.upvote.path, { id: userId });
+      const res = await fetch(url, {
+        method: api.votes.upvote.method,
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ type }),
+        credentials: "include",
+      });
+      if (!res.ok) throw new Error("Failed to upvote");
+      return api.votes.upvote.responses[200].parse(await res.json());
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: [api.listings.list.path] });
+      queryClient.invalidateQueries({ queryKey: [api.listings.get.path] });
+    },
+  });
+}
