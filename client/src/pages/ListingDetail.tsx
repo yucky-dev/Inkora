@@ -51,7 +51,7 @@ export default function ListingDetail() {
   }
 
   const { listing, farmer, farm } = data;
-  const whatsappUrl = `https://wa.me/${farmer.phone.replace(/[^0-9]/g, '')}?text=Hi%20${farmer.name},%20I%20am%20interested%20in%20your%20${listing.cropName}%20listing%20on%20AgriBridge.`;
+  const whatsappUrl = `https://wa.me/${farmer.phone.replace(/[^0-9]/g, '')}?text=Hi%20${farmer.name},%20I%20am%20interested%20in%20your%20${listing.cropName}%20listing%20on%20Inkora.`;
 
   const handleUpvote = (type: 'deliverySpeed' | 'performance') => {
     upvote.mutate({ userId: farmer.id, type }, {
@@ -224,7 +224,7 @@ export default function ListingDetail() {
             {!farmer.isVerified && (
               <div className="mt-6 p-4 bg-secondary/10 text-secondary-foreground rounded-xl text-sm flex gap-3 items-start">
                 <div className="shrink-0 mt-0.5"><ShieldCheck className="w-5 h-5 opacity-70" /></div>
-                <p>This farmer has not yet been verified by AgriBridge. Always conduct due diligence before making payments.</p>
+                <p>This farmer has not yet been verified by Inkora. Always conduct due diligence before making payments.</p>
               </div>
             )}
           </div>

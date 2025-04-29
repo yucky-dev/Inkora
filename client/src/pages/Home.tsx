@@ -5,7 +5,7 @@ import { useListings } from "@/hooks/use-listings";
 import { ListingCard } from "@/components/ListingCard";
 import { ShoppingBag, Globe, Zap, ShieldCheck } from "lucide-react";
 
-import heroImage from "@assets/Picsart_26-03-06_09-33-17-836_1772786969521.jpg";
+import heroImage from "@assets/file_00000000f0cc724682dcecf9a5ed3e54_1772886433508.png";
 
 export default function Home() {
   const { data: trendingCrops } = useTrendingCrops();
@@ -37,7 +37,7 @@ export default function Home() {
               Standard in <span className="text-[#D8C9A3]">Agri-Trade.</span>
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl leading-relaxed font-medium drop-shadow-sm">
-              AgriBridge establishes a foundation of integrity, connecting institutional buyers with verified farmers through a transparent, high-standard exchange platform.
+              Inkora establishes a foundation of integrity, connecting institutional buyers with verified farmers through a transparent, high-standard exchange platform.
             </p>
             <div className="flex flex-wrap gap-5">
               <Button size="lg" asChild className="bg-[#D8C9A3] text-[#003F3A] hover:bg-[#D8C9A3]/90 h-16 px-10 rounded-md font-bold transition-all shadow-2xl text-lg">

@@ -1,14 +1,16 @@
 import { Link, useLocation } from "wouter";
 import { useAuth, useLogout } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
-import { Sprout, Menu, X, User as UserIcon } from "lucide-react";
+import { Menu, X, User as UserIcon } from "lucide-react";
 import { useState } from "react";
+import inkoraLogo from "@assets/file_00000000f0cc724682dcecf9a5ed3e54_1772886433508.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { Sprout } from "lucide-react";
 
 export function NavBar() {
   const [location] = useLocation();
@@ -33,11 +35,9 @@ export function NavBar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2 group">
-              <div className="bg-primary/10 p-2 rounded-xl group-hover:bg-primary/20 transition-colors">
-                <Sprout className="w-6 h-6 text-primary" />
-              </div>
+              <img src={inkoraLogo} alt="Inkora" className="h-8 w-8 group-hover:opacity-80 transition-opacity" />
               <span className="font-display font-bold text-xl tracking-tight text-foreground">
-                AgriBridge
+                Inkora
               </span>
             </Link>
           </div>

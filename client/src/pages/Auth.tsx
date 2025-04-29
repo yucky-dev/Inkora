@@ -61,7 +61,7 @@ export default function Auth() {
             Grow your network.<br/>Expand your reach.
           </h1>
           <p className="text-xl text-white/80 max-w-lg">
-            Join thousands of farmers and buyers conducting fair, transparent trade directly on AgriBridge.
+            Join thousands of farmers and buyers conducting fair, transparent trade directly on Inkora.
           </p>
         </div>
       </div>
