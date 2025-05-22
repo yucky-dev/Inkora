@@ -5,7 +5,8 @@ import { useListings } from "@/hooks/use-listings";
 import { ListingCard } from "@/components/ListingCard";
 import { ShoppingBag, Globe, Zap, ShieldCheck } from "lucide-react";
 
-import heroImage from "@assets/file_00000000f0cc724682dcecf9a5ed3e54_1772886433508.png";
+import heroImage from "@assets/Picsart_26-03-06_09-33-17-836_1772786969521.jpg";
+import inkoraLogo from "@assets/file_00000000f0cc724682dcecf9a5ed3e54_1772886433508.png";
 
 export default function Home() {
   const { data: trendingCrops } = useTrendingCrops();
@@ -27,14 +28,18 @@ export default function Home() {
           <div className="absolute inset-0 bg-gradient-to-r from-[#003F3A]/80 via-[#003F3A]/40 to-transparent" />
         </div>
 
+        {/* Inkora Logo in Top Corner */}
+        <div className="absolute top-8 left-8 z-20">
+          <img src={inkoraLogo} alt="Inkora" className="h-12 w-12 drop-shadow-lg" />
+        </div>
+
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
           <div className="max-w-3xl">
             <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#D8C9A3]/10 text-[#D8C9A3] text-xs font-bold uppercase tracking-[0.2em] mb-8 backdrop-blur-md border border-[#D8C9A3]/20">
               <ShieldCheck className="w-4 h-4" /> Diligence • Integrity • Trust
             </div>
-            <h1 className="text-5xl md:text-7xl font-display font-extrabold tracking-tight mb-8 leading-[1.1] drop-shadow-sm">
-              The Professional <br/>
-              Standard in <span className="text-[#D8C9A3]">Agri-Trade.</span>
+            <h1 className="text-6xl md:text-8xl font-display font-extrabold tracking-tight mb-8 leading-[1.1] drop-shadow-lg">
+              <span className="text-[#D8C9A3]">Agri-Trade.</span>
             </h1>
             <p className="text-xl md:text-2xl text-white/90 mb-12 max-w-2xl leading-relaxed font-medium drop-shadow-sm">
               Inkora establishes a foundation of integrity, connecting institutional buyers with verified farmers through a transparent, high-standard exchange platform.
