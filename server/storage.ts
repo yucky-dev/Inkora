@@ -194,6 +194,35 @@ export class DatabaseStorage implements IStorage {
     });
     return record;
   }
+
+  async checkUploadLimit(userId: number, type: 'photo' | 'video'): Promise<{ used: number, limit: number, remaining: number, canUpload: boolean }> {
+    const user = await this.getUser(userId);
+    if (!user) throw new Error("User not found");
+    
+    const field = type === 'photo' ? user.photoUploads : user.videoUploads;
+    const limit = type === 'photo' ? 5 : 1;
+    const used = field || 0;
+    const remaining = Math.max(0, limit - used);
+    
+    return { used, limit, remaining, canUpload: used < limit };
+  }
+
+  async incrementUploadCount(userId: number, type: 'photo' | 'video'): Promise<{ used: number, limit: number, remaining: number }> {
+    const user = await this.getUser(userId);
+    if (!user) throw new Error("User not found");
+    
+    const limit = type === 'photo' ? 5 : 1;
+    const field = type === 'photo' ? user.photoUploads : user.videoUploads;
+    const used = (field || 0) + 1;
+    
+    if (used > limit) throw new Error(`Upload limit of ${limit} ${type}(s) exceeded`);
+    
+    const updateField = type === 'photo' ? { photoUploads: used } : { videoUploads: used };
+    await db.update(users).set(updateField).where(eq(users.id, userId));
+    
+    const remaining = Math.max(0, limit - used);
+    return { used, limit, remaining };
+  }
 }
 
 export const storage = new DatabaseStorage();

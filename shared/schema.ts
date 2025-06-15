@@ -13,6 +13,8 @@ export const users = pgTable("users", {
   isVerified: boolean("is_verified").default(false),
   deliverySpeedVotes: integer("delivery_speed_votes").default(0),
   performanceVotes: integer("performance_votes").default(0),
+  photoUploads: integer("photo_uploads").default(0), // Track free photo uploads (max 5)
+  videoUploads: integer("video_uploads").default(0), // Track free video uploads (max 1)
   createdAt: timestamp("created_at").defaultNow(),
 });
 

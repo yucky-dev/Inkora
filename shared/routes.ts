@@ -207,6 +207,36 @@ export const api = {
         404: errorSchemas.notFound,
       },
     }
+  },
+  uploads: {
+    checkLimit: {
+      method: 'GET' as const,
+      path: '/api/uploads/limit/:type' as const,
+      responses: {
+        200: z.object({ 
+          type: z.enum(['photo', 'video']),
+          used: z.number(), 
+          limit: z.number(),
+          remaining: z.number(),
+          canUpload: z.boolean()
+        }),
+        401: errorSchemas.unauthorized,
+      },
+    },
+    increment: {
+      method: 'POST' as const,
+      path: '/api/uploads/record/:type' as const,
+      responses: {
+        200: z.object({ 
+          type: z.enum(['photo', 'video']),
+          used: z.number(), 
+          limit: z.number(),
+          remaining: z.number()
+        }),
+        400: errorSchemas.validation,
+        401: errorSchemas.unauthorized,
+      },
+    }
   }
 };
 

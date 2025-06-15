@@ -3,7 +3,7 @@ import { useAuth, useLogout } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User as UserIcon } from "lucide-react";
 import { useState } from "react";
-import inkoraLogo from "@assets/file_00000000f0cc724682dcecf9a5ed3e54_1772886433508.png";
+import inkoraLogo from "@assets/Picsart_26-03-08_18-15-46-958_1772992484581.jpg";
 import {
   DropdownMenu,
   DropdownMenuContent,

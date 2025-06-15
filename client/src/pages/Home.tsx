@@ -6,7 +6,7 @@ import { ListingCard } from "@/components/ListingCard";
 import { ShoppingBag, Globe, Zap, ShieldCheck } from "lucide-react";
 
 import heroImage from "@assets/Picsart_26-03-06_09-33-17-836_1772786969521.jpg";
-import inkoraLogo from "@assets/file_00000000f0cc724682dcecf9a5ed3e54_1772886433508.png";
+import inkoraLogo from "@assets/Picsart_26-03-08_18-15-46-958_1772992484581.jpg";
 
 export default function Home() {
   const { data: trendingCrops } = useTrendingCrops();

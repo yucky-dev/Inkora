@@ -276,6 +276,36 @@ export async function registerRoutes(
     }
   });
 
+  // Upload limit routes
+  app.get(api.uploads.checkLimit.path, requireAuth, async (req, res) => {
+    try {
+      const type = req.params.type as 'photo' | 'video';
+      if (type !== 'photo' && type !== 'video') {
+        return res.status(400).json({ message: "Invalid upload type" });
+      }
+      const result = await storage.checkUploadLimit(req.user!.id, type);
+      res.status(200).json({ type, ...result });
+    } catch (err) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  app.post(api.uploads.increment.path, requireAuth, async (req, res) => {
+    try {
+      const type = req.params.type as 'photo' | 'video';
+      if (type !== 'photo' && type !== 'video') {
+        return res.status(400).json({ message: "Invalid upload type" });
+      }
+      const result = await storage.incrementUploadCount(req.user!.id, type);
+      res.status(200).json({ type, ...result });
+    } catch (err) {
+      if ((err as any).message.includes("exceeded")) {
+        return res.status(400).json({ message: (err as any).message });
+      }
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
   // Seed DB with demo data (run async to not block startup)
   seedDatabase().catch(console.error);
 
@@ -376,3 +406,4 @@ async function seedDatabase() {
     console.log("Database seeded successfully.");
   }
 }
+
