@@ -3,7 +3,7 @@ import { useAuth, useLogout } from "@/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import { Menu, X, User as UserIcon } from "lucide-react";
 import { useState } from "react";
-import inkoraLogo from "@assets/Picsart_26-03-08_18-15-46-958_1772992484581.jpg";
+import inkoraLogo from "@assets/Picsart_26-03-09_08-35-23-554_1773041767110.png";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -35,7 +35,7 @@ export function NavBar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2 group">
-              <img src={inkoraLogo} alt="Inkora" className="h-8 w-8 group-hover:opacity-80 transition-opacity" />
+              <img src={inkoraLogo} alt="Inkora" className="h-10 w-10 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
               <span className="font-display font-bold text-xl tracking-tight text-foreground">
                 Inkora
               </span>

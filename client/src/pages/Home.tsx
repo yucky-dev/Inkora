@@ -6,7 +6,7 @@ import { ListingCard } from "@/components/ListingCard";
 import { ShoppingBag, Globe, Zap, ShieldCheck } from "lucide-react";
 
 import heroImage from "@assets/Picsart_26-03-06_09-33-17-836_1772786969521.jpg";
-import inkoraLogo from "@assets/Picsart_26-03-08_18-15-46-958_1772992484581.jpg";
+import inkoraLogo from "@assets/Picsart_26-03-09_08-35-23-554_1773041767110.png";
 
 export default function Home() {
   const { data: trendingCrops } = useTrendingCrops();
@@ -30,7 +30,7 @@ export default function Home() {
 
         {/* Inkora Logo in Top Corner */}
         <div className="absolute top-8 left-8 z-20">
-          <img src={inkoraLogo} alt="Inkora" className="h-12 w-12 drop-shadow-lg" />
+          <img src={inkoraLogo} alt="Inkora" className="h-16 w-16 rounded-xl drop-shadow-xl" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
