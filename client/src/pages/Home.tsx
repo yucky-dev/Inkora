@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 import { useTrendingCrops, usePriceInsights } from "@/hooks/use-analytics";
 import { useListings } from "@/hooks/use-listings";
 import { ListingCard } from "@/components/ListingCard";
-import { ShoppingBag, Globe, Zap, ShieldCheck } from "lucide-react";
+import { ShoppingBag, Zap, ShieldCheck } from "lucide-react";
 
 import heroImage from "@assets/Picsart_26-03-06_09-33-17-836_1772786969521.jpg";
 import inkoraLogo from "@assets/Picsart_26-03-09_08-35-23-554_1773041767110.png";
@@ -30,7 +30,7 @@ export default function Home() {
 
         {/* Inkora Logo in Top Corner */}
         <div className="absolute top-8 left-8 z-20">
-          <img src={inkoraLogo} alt="Inkora" className="h-16 w-16 rounded-xl drop-shadow-xl" />
+          <img src={inkoraLogo} alt="Inkora" className="h-16 w-16 rounded-xl drop-shadow-xl" style={{filter: "hue-rotate(-45deg) saturate(1.2) brightness(0.9)"}} />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-white">
@@ -114,7 +114,6 @@ export default function Home() {
             </div>
 
             <div className="bg-[#003F3A] text-white rounded-xl p-8 shadow-2xl relative overflow-hidden">
-               <Globe className="absolute -bottom-10 -right-10 w-40 h-40 opacity-10" />
               <ShieldCheck className="w-10 h-10 text-[#D8C9A3] mb-6" />
               <h3 className="font-bold text-xl mb-3">Institutional Integrity</h3>
               <p className="text-sm text-white/70 leading-relaxed mb-8">

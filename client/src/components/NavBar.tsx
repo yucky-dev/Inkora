@@ -35,7 +35,7 @@ export function NavBar() {
         <div className="flex justify-between items-center h-16">
           <div className="flex items-center gap-2">
             <Link href="/" className="flex items-center gap-2 group">
-              <img src={inkoraLogo} alt="Inkora" className="h-10 w-10 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" />
+              <img src={inkoraLogo} alt="Inkora" className="h-10 w-10 rounded-lg group-hover:opacity-80 transition-opacity shadow-sm" style={{filter: "hue-rotate(-45deg) saturate(1.2) brightness(0.9)"}} />
               <span className="font-display font-bold text-xl tracking-tight text-foreground">
                 Inkora
               </span>
