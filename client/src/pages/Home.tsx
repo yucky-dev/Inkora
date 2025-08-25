@@ -8,6 +8,13 @@ import { ShoppingBag, Zap, ShieldCheck } from "lucide-react";
 import heroImage from "@assets/Picsart_26-03-06_09-33-17-836_1772786969521.jpg";
 import inkoraLogo from "@assets/Picsart_26-03-09_08-35-23-554_1773041767110.png";
 
+const UK_CROPS = [
+  { name: "Wheat", estimatedPrice: "$285" },
+  { name: "Barley", estimatedPrice: "$215" },
+  { name: "Potatoes", estimatedPrice: "$380" },
+  { name: "Oats", estimatedPrice: "$245" },
+];
+
 export default function Home() {
   const { data: trendingCrops } = useTrendingCrops();
   const { data: listings, isLoading } = useListings();
@@ -102,27 +109,17 @@ export default function Home() {
                   </p>
                 </div>
                 <div className="space-y-4">
-                  <p className="text-[10px] font-black text-black/40 uppercase tracking-widest">Priority Crops</p>
-                  {trendingCrops?.map((crop, idx) => (
-                    <div key={crop.cropName} className="flex items-center justify-between text-sm border-b border-black/5 pb-2">
-                      <span className="text-[#2A2A2A]/80 font-bold">{crop.cropName}</span>
-                      <span className="text-[#8C6239] font-black italic">TOP {idx + 1}</span>
+                  <p className="text-[10px] font-black text-black/40 uppercase tracking-widest">United Kingdom Crops</p>
+                  {UK_CROPS.map((crop) => (
+                    <div key={crop.name} className="flex items-center justify-between text-sm border-b border-black/5 pb-2">
+                      <span className="text-[#2A2A2A]/80 font-bold">{crop.name}</span>
+                      <span className="text-[#8C6239] font-black">{crop.estimatedPrice}</span>
                     </div>
                   ))}
                 </div>
               </div>
             </div>
 
-            <div className="bg-[#003F3A] text-white rounded-xl p-8 shadow-2xl relative overflow-hidden">
-              <ShieldCheck className="w-10 h-10 text-[#D8C9A3] mb-6" />
-              <h3 className="font-bold text-xl mb-3">Institutional Integrity</h3>
-              <p className="text-sm text-white/70 leading-relaxed mb-8">
-                Our platform enforces strict compliance and quality standards to ensure every trade is executed with complete transparency.
-              </p>
-              <Button variant="outline" className="w-full border-white/20 hover:bg-white/10 text-white font-bold h-12">
-                Compliance Standards
-              </Button>
-            </div>
           </aside>
         </div>
       </main>
