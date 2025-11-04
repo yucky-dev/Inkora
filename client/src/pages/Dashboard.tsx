@@ -16,7 +16,7 @@ export default function Dashboard() {
   const updateListing = useUpdateListing();
   const deleteListing = useDeleteListing();
 
-  if (!user || user.role !== "farmer") {
+  if (!user || user?.role?.toLowerCase() !== "farmer") {
     setLocation("/");
     return null;
   }

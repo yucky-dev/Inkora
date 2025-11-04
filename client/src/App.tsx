@@ -15,6 +15,7 @@ import Dashboard from "./pages/Dashboard";
 import FarmProfile from "./pages/FarmProfile";
 import CreateListing from "./pages/CreateListing";
 import Admin from "./pages/Admin";
+import SellerProfile from "./pages/SellerProfile";
 
 function Router() {
   return (
@@ -24,6 +25,7 @@ function Router() {
         <Route path="/auth" component={Auth} />
         <Route path="/browse" component={Browse} />
         <Route path="/listing/:id" component={ListingDetail} />
+        <Route path="/seller/:id" component={SellerProfile} />
         <Route path="/dashboard" component={Dashboard} />
         <Route path="/farm-profile" component={FarmProfile} />
         <Route path="/create-listing" component={CreateListing} />

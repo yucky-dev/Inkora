@@ -27,7 +27,7 @@ export default function CreateListing() {
     imageUrl: "",
   });
 
-  if (!user || user.role !== "farmer") return null;
+  if (!user || user?.role?.toLowerCase() !== "farmer") return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

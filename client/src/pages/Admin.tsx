@@ -22,8 +22,8 @@ export default function Admin() {
     verifyFarmer.mutate(id);
   };
 
-  const farmers = users?.filter(u => u.role === "farmer") || [];
-  const buyers = users?.filter(u => u.role === "buyer") || [];
+  const farmers = users?.filter(u => u.role?.toLowerCase() === "farmer") || [];
+  const buyers = users?.filter(u => u.role?.toLowerCase() === "buyer") || [];
 
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">

@@ -52,25 +52,32 @@ export function useLogin() {
   });
 }
 
+type RegisterInput = {
+  name: string;
+  phone: string;
+  state: string;
+  role: string;
+  password: string;
+};
+
 export function useRegister() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (data: InsertUser) => {
-      const validated = api.auth.register.input.parse(data);
+    mutationFn: async (data: RegisterInput) => {
       const res = await fetch(api.auth.register.path, {
         method: api.auth.register.method,
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(validated),
+        body: JSON.stringify(data),
         credentials: "include",
       });
       if (!res.ok) {
-        if (res.status === 400) {
-          const error = api.auth.register.responses[400].parse(await res.json());
-          throw new Error(error.message);
+        const body = await res.json();
+        if (Array.isArray(body)) {
+          throw new Error(body.map((e: any) => e.message).join(", "));
         }
-        throw new Error("Failed to register");
+        throw new Error(body.message || "Failed to register");
       }
-      return api.auth.register.responses[201].parse(await res.json());
+      return await res.json();
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: [api.auth.me.path] });

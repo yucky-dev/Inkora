@@ -23,9 +23,10 @@ export function NavBar() {
     { name: "Browse", href: "/browse" },
   ];
 
-  if (user?.role === "farmer") {
+  const roleLC = user?.role?.toLowerCase();
+  if (roleLC === "farmer") {
     navLinks.push({ name: "Dashboard", href: "/dashboard" });
-  } else if (user?.role === "admin") {
+  } else if (roleLC === "admin") {
     navLinks.push({ name: "Admin Panel", href: "/admin" });
   }
 
@@ -76,8 +77,8 @@ export function NavBar() {
                           Logged in as {user.role}
                         </div>
                         <DropdownMenuItem asChild>
-                          <Link href={user.role === 'admin' ? '/admin' : '/dashboard'} className="cursor-pointer w-full text-left">
-                            {user.role === 'admin' ? 'Admin Panel' : 'My Dashboard'}
+                          <Link href={user.role?.toLowerCase() === 'admin' ? '/admin' : '/dashboard'} className="cursor-pointer w-full text-left">
+                            {user.role?.toLowerCase() === 'admin' ? 'Admin Panel' : 'My Dashboard'}
                           </Link>
                         </DropdownMenuItem>
                         <DropdownMenuItem

@@ -46,15 +46,24 @@ export async function registerRoutes(
   };
 
   // Auth Routes
+  const registerInputSchema = z.object({
+    name: z.string().min(1, "Name is required"),
+    phone: z.string().min(6, "Phone number is required"),
+    state: z.string().min(1, "State is required"),
+    role: z.string().min(1, "Role is required"),
+    password: z.string().min(6, "Password must be at least 6 characters"),
+  });
+
   app.post(api.auth.register.path, async (req, res) => {
     try {
-      const input = api.auth.register.input.parse(req.body);
+      const input = registerInputSchema.parse(req.body);
       const existingUser = await storage.getUserByPhone(input.phone);
       if (existingUser) {
         return res.status(400).json({ message: "Phone number already registered", field: "phone" });
       }
-      const passwordHash = await hashPassword(req.body.password);
-      const user = await storage.createUser({ ...input, passwordHash });
+      const passwordHash = await hashPassword(input.password);
+      const role = input.role.charAt(0).toUpperCase() + input.role.slice(1).toLowerCase();
+      const user = await storage.createUser({ name: input.name, phone: input.phone, state: input.state, role, passwordHash, deliverySpeedVotes: 0, performanceVotes: 0, photoUploads: 0, videoUploads: 0 });
       
       req.login(user, (err: any) => {
         if (err) return res.status(500).json({ message: "Error logging in" });
@@ -62,7 +71,7 @@ export async function registerRoutes(
       });
     } catch (err) {
       if (err instanceof z.ZodError) {
-        return res.status(400).json({ message: err.errors[0].message });
+        return res.status(400).json(err.errors);
       }
       res.status(500).json({ message: "Internal server error" });
     }
@@ -159,6 +168,21 @@ export async function registerRoutes(
       const listing = await storage.getListing(id);
       if (!listing) return res.status(404).json({ message: "Listing not found" });
       res.status(200).json(listing);
+    } catch (err) {
+      res.status(500).json({ message: "Internal server error" });
+    }
+  });
+
+  // Public seller profile route
+  app.get('/api/sellers/:id', async (req, res) => {
+    try {
+      const id = parseInt(req.params.id);
+      const user = await storage.getUser(id);
+      if (!user) return res.status(404).json({ message: "Seller not found" });
+      const { passwordHash, ...publicUser } = user;
+      const allListings = await storage.getListings();
+      const sellerListings = allListings.filter(l => l.listing.farmerId === id);
+      res.status(200).json({ user: publicUser, listings: sellerListings });
     } catch (err) {
       res.status(500).json({ message: "Internal server error" });
     }

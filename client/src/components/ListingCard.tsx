@@ -11,7 +11,7 @@ export function ListingCard({ data }: { data: ListingWithFarmer }) {
   const isAvailable = listing.status === "Available";
 
   return (
-    <Link href={`/listing/${listing.id}`} className="block group">
+    <Link href={`/seller/${farmer.id}`} className="block group">
       <div className="bg-white rounded-lg overflow-hidden border border-black/5 hover:border-black/10 transition-all duration-200 h-full flex flex-col shadow-sm hover:shadow-md">
         <div className="relative aspect-square overflow-hidden bg-[#F7F5EF]">
           {listing.imageUrl ? (

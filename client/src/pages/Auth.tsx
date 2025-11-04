@@ -20,7 +20,7 @@ export default function Auth() {
   const [registerForm, setRegisterForm] = useState({ name: "", phone: "", state: "", role: "buyer", password: "" });
 
   if (user) {
-    setLocation(user.role === "admin" ? "/admin" : (user.role === "farmer" ? "/dashboard" : "/browse"));
+    setLocation(user.role?.toLowerCase() === "admin" ? "/admin" : (user.role?.toLowerCase() === "farmer" ? "/dashboard" : "/browse"));
     return null;
   }
 

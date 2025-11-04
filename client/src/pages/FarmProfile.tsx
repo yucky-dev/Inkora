@@ -34,7 +34,7 @@ export default function FarmProfile() {
     }
   }, [farm]);
 
-  if (!user || user.role !== "farmer") return null;
+  if (!user || user?.role?.toLowerCase() !== "farmer") return null;
   if (isFarmLoading) return <div className="p-12 text-center">Loading...</div>;
 
   const handleSubmit = (e: React.FormEvent) => {

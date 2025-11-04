@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MapPin, Phone, MessageCircle, Clock, CheckCircle, Package, Scale, ArrowLeft, ShieldCheck, Zap, ThumbsUp } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Clock, CheckCircle, Package, Scale, ArrowLeft, ShieldCheck, Zap, ThumbsUp, Sprout } from "lucide-react";
 import { Link } from "wouter";
 import { useUpvoteUser } from "@/hooks/use-listings";
 import { useToast } from "@/hooks/use-toast";
