@@ -6,12 +6,13 @@ import { Badge } from "@/components/ui/badge";
 
 type ListingWithFarmer = z.infer<typeof listingWithFarmerSchema>;
 
-export function ListingCard({ data }: { data: ListingWithFarmer }) {
+export function ListingCard({ data, linkTo }: { data: ListingWithFarmer; linkTo?: string }) {
   const { listing, farmer, farm } = data;
   const isAvailable = listing.status === "Available";
+  const href = linkTo ?? `/seller/${farmer.id}`;
 
   return (
-    <Link href={`/seller/${farmer.id}`} className="block group">
+    <Link href={href} className="block group">
       <div className="bg-white rounded-lg overflow-hidden border border-black/5 hover:border-black/10 transition-all duration-200 h-full flex flex-col shadow-sm hover:shadow-md">
         <div className="relative aspect-square overflow-hidden bg-[#F7F5EF]">
           {listing.imageUrl ? (

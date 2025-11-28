@@ -7,7 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { useToast } from "@/hooks/use-toast";
-import { Sprout } from "lucide-react";
+import { Sprout, Eye, EyeOff } from "lucide-react";
 
 export default function Auth() {
   const [, setLocation] = useLocation();
@@ -18,6 +18,8 @@ export default function Auth() {
 
   const [loginForm, setLoginForm] = useState({ phone: "", password: "" });
   const [registerForm, setRegisterForm] = useState({ name: "", phone: "", state: "", role: "buyer", password: "" });
+  const [showLoginPassword, setShowLoginPassword] = useState(false);
+  const [showRegPassword, setShowRegPassword] = useState(false);
 
   if (user) {
     setLocation(user.role?.toLowerCase() === "admin" ? "/admin" : (user.role?.toLowerCase() === "farmer" ? "/dashboard" : "/browse"));
@@ -94,14 +96,23 @@ export default function Auth() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="password">Password</Label>
-                  <Input 
-                    id="password" 
-                    type="password" 
-                    required 
-                    className="h-12 bg-card"
-                    value={loginForm.password}
-                    onChange={e => setLoginForm({...loginForm, password: e.target.value})}
-                  />
+                  <div className="relative">
+                    <Input 
+                      id="password" 
+                      type={showLoginPassword ? "text" : "password"}
+                      required 
+                      className="h-12 bg-card pr-12"
+                      value={loginForm.password}
+                      onChange={e => setLoginForm({...loginForm, password: e.target.value})}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowLoginPassword(!showLoginPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {showLoginPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
                 </div>
                 <Button type="submit" className="w-full h-12 text-lg shadow-lg shadow-primary/20" disabled={login.isPending}>
                   {login.isPending ? "Logging in..." : "Log In"}
@@ -160,14 +171,23 @@ export default function Auth() {
                 </div>
                 <div className="space-y-2">
                   <Label htmlFor="reg-password">Password</Label>
-                  <Input 
-                    id="reg-password" 
-                    type="password" 
-                    required 
-                    className="h-12 bg-card"
-                    value={registerForm.password}
-                    onChange={e => setRegisterForm({...registerForm, password: e.target.value})}
-                  />
+                  <div className="relative">
+                    <Input 
+                      id="reg-password" 
+                      type={showRegPassword ? "text" : "password"}
+                      required 
+                      className="h-12 bg-card pr-12"
+                      value={registerForm.password}
+                      onChange={e => setRegisterForm({...registerForm, password: e.target.value})}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setShowRegPassword(!showRegPassword)}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                    >
+                      {showRegPassword ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
+                    </button>
+                  </div>
                 </div>
                 <Button type="submit" className="w-full h-12 text-lg shadow-lg shadow-primary/20 mt-2" disabled={register.isPending}>
                   {register.isPending ? "Creating account..." : "Create Account"}

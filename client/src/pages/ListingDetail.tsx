@@ -1,10 +1,10 @@
 import { useParams } from "wouter";
 import { useListing, useRecordView } from "@/hooks/use-listings";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
-import { MapPin, Phone, MessageCircle, Clock, CheckCircle, Package, Scale, ArrowLeft, ShieldCheck, Zap, ThumbsUp, Sprout } from "lucide-react";
+import { MapPin, Phone, MessageCircle, Clock, CheckCircle, Package, Scale, ArrowLeft, ShieldCheck, Zap, ThumbsUp, Sprout, ChevronLeft, ChevronRight, Images } from "lucide-react";
 import { Link } from "wouter";
 import { useUpvoteUser } from "@/hooks/use-listings";
 import { useToast } from "@/hooks/use-toast";
@@ -53,6 +53,15 @@ export default function ListingDetail() {
   const { listing, farmer, farm } = data;
   const whatsappUrl = `https://wa.me/${farmer.phone.replace(/[^0-9]/g, '')}?text=Hi%20${farmer.name},%20I%20am%20interested%20in%20your%20${listing.cropName}%20listing%20on%20Inkora.`;
 
+  const allPhotos = (listing as any).imageUrls?.length > 0
+    ? (listing as any).imageUrls
+    : listing.imageUrl ? [listing.imageUrl] : [];
+
+  const [activePhoto, setActivePhoto] = useState(0);
+
+  const prevPhoto = () => setActivePhoto(p => Math.max(0, p - 1));
+  const nextPhoto = () => setActivePhoto(p => Math.min(allPhotos.length - 1, p + 1));
+
   const handleUpvote = (type: 'deliverySpeed' | 'performance') => {
     upvote.mutate({ userId: farmer.id, type }, {
       onSuccess: () => {
@@ -68,11 +77,12 @@ export default function ListingDetail() {
       </Link>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        {/* Left Col: Image & Farm Details */}
+        {/* Left Col: Image Gallery & Farm Details */}
         <div className="space-y-8">
+          {/* Main Photo */}
           <div className="aspect-[4/3] rounded-3xl overflow-hidden bg-muted border relative shadow-lg">
-            {listing.imageUrl ? (
-              <img src={listing.imageUrl} alt={listing.cropName} className="w-full h-full object-cover" />
+            {allPhotos.length > 0 ? (
+              <img src={allPhotos[activePhoto]} alt={`${listing.cropName} photo ${activePhoto + 1}`} className="w-full h-full object-cover" />
             ) : (
               <div className="w-full h-full flex flex-col items-center justify-center bg-accent/20">
                 <Package className="w-24 h-24 text-primary/20 mb-4" />
@@ -87,7 +97,37 @@ export default function ListingDetail() {
                 <Badge variant="destructive" className="shadow-sm text-sm px-3 py-1">Sold Out</Badge>
               )}
             </div>
+            {allPhotos.length > 1 && (
+              <>
+                <button onClick={prevPhoto} disabled={activePhoto === 0} className="absolute left-3 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-1.5 disabled:opacity-30 hover:bg-black/70 transition-all">
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button onClick={nextPhoto} disabled={activePhoto === allPhotos.length - 1} className="absolute right-3 top-1/2 -translate-y-1/2 bg-black/50 text-white rounded-full p-1.5 disabled:opacity-30 hover:bg-black/70 transition-all">
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+                <div className="absolute bottom-3 right-3 bg-black/60 text-white text-xs font-bold px-2 py-1 rounded-full backdrop-blur-sm flex items-center gap-1">
+                  <Images className="w-3 h-3" /> {activePhoto + 1}/{allPhotos.length}
+                </div>
+              </>
+            )}
           </div>
+
+          {/* Thumbnail Strip */}
+          {allPhotos.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {allPhotos.map((url: string, idx: number) => (
+                <button
+                  key={idx}
+                  onClick={() => setActivePhoto(idx)}
+                  className={`shrink-0 w-16 h-16 rounded-lg overflow-hidden border-2 transition-all ${
+                    idx === activePhoto ? "border-primary shadow-md scale-105" : "border-transparent opacity-60 hover:opacity-90"
+                  }`}
+                >
+                  <img src={url} alt={`Thumbnail ${idx + 1}`} className="w-full h-full object-cover" />
+                </button>
+              ))}
+            </div>
+          )}
 
           <div className="bg-card border rounded-2xl p-6 shadow-sm">
             <h3 className="font-display font-bold text-xl mb-4">About the Farm</h3>
@@ -194,6 +234,11 @@ export default function ListingDetail() {
                 <a href={`tel:${farmer.phone}`}>
                   <Phone className="w-5 h-5 mr-2" /> Call Farmer
                 </a>
+              </Button>
+              <Button asChild size="lg" variant="secondary" className="w-full h-12 text-sm font-bold border hover:bg-primary/5">
+                <Link href={`/seller/${farmer.id}`}>
+                  View Full Seller Profile
+                </Link>
               </Button>
             </div>
 

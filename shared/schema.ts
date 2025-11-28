@@ -37,6 +37,7 @@ export const listings = pgTable("listings", {
   price: numeric("price").notNull(),
   harvestDate: timestamp("harvest_date"),
   imageUrl: text("image_url"),
+  imageUrls: text("image_urls").array().default([]),
   boosted: boolean("boosted").default(false),
   status: text("status").notNull().default("Available"), // 'Available', 'Sold'
   views: integer("views").default(0),

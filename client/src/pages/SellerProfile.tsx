@@ -105,7 +105,7 @@ export default function SellerProfile() {
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 gap-6">
             {listings.map((item: any) => (
-              <ListingCard key={item.listing.id} data={item} />
+              <ListingCard key={item.listing.id} data={item} linkTo={`/listing/${item.listing.id}`} />
             ))}
           </div>
         )}
