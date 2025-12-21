@@ -83,15 +83,15 @@ export default function FarmProfile() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="lga" className="flex items-center gap-2"><MapPin className="w-4 h-4 text-primary" /> Local Government Area (LGA)</Label>
+              <Label htmlFor="lga" className="flex items-center gap-2"><MapPin className="w-4 h-4 text-primary" /> District / Town</Label>
               <Input 
                 id="lga" 
-                placeholder="e.g. Nassarawa" 
+                placeholder="e.g. Harrogate" 
                 required 
                 value={formData.lga}
                 onChange={e => setFormData({...formData, lga: e.target.value})}
               />
-              <p className="text-xs text-muted-foreground">Your state is already recorded as {user.state}.</p>
+              <p className="text-xs text-muted-foreground">Your county/region is already recorded as {user.state}.</p>
             </div>
 
             <div className="space-y-2">

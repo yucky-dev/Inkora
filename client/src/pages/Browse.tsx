@@ -70,9 +70,9 @@ export default function Browse() {
             </div>
 
             <div className="space-y-2">
-              <label className="text-sm font-medium">Location (State)</label>
+              <label className="text-sm font-medium">Location (County / City)</label>
               <Input 
-                placeholder="e.g. Kano" 
+                placeholder="e.g. Yorkshire" 
                 value={filters.state === "All" ? "" : filters.state}
                 onChange={e => setFilters({...filters, state: e.target.value || "All"})}
               />

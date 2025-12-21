@@ -138,7 +138,7 @@ export default function Auth() {
                     <Label htmlFor="reg-phone">Phone Number</Label>
                     <Input 
                       id="reg-phone" 
-                      placeholder="080..." 
+                      placeholder="+44 7700..." 
                       required 
                       className="h-12 bg-card"
                       value={registerForm.phone}
@@ -146,10 +146,10 @@ export default function Auth() {
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="reg-state">State / Region</Label>
+                    <Label htmlFor="reg-state">County / Region</Label>
                     <Input 
                       id="reg-state" 
-                      placeholder="e.g. Kano" 
+                      placeholder="e.g. Yorkshire" 
                       required 
                       className="h-12 bg-card"
                       value={registerForm.state}

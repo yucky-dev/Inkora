@@ -85,7 +85,7 @@ export default function Dashboard() {
                   </div>
                   <div>
                     <p className="text-xs text-muted-foreground uppercase tracking-wider mb-1">Location</p>
-                    <p className="font-semibold text-foreground">{farm.lga}, {user.state}</p>
+                    <p className="font-semibold text-foreground">{farm.lga}{farm.lga ? ", " : ""}{user.state}</p>
                   </div>
                 </div>
               ) : (

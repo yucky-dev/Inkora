@@ -1,8 +1,7 @@
 import { Link } from "wouter";
 import { type z } from "zod";
 import { type listingWithFarmerSchema } from "@shared/routes";
-import { MapPin, Sprout, CheckCircle, Zap } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { MapPin } from "lucide-react";
 
 type ListingWithFarmer = z.infer<typeof listingWithFarmerSchema>;
 
@@ -13,46 +12,57 @@ export function ListingCard({ data, linkTo }: { data: ListingWithFarmer; linkTo?
 
   return (
     <Link href={href} className="block group">
-      <div className="bg-white rounded-lg overflow-hidden border border-black/5 hover:border-black/10 transition-all duration-200 h-full flex flex-col shadow-sm hover:shadow-md">
-        <div className="relative aspect-square overflow-hidden bg-[#F7F5EF]">
+      <div className="bg-white rounded-2xl overflow-hidden border border-black/8 hover:border-black/15 hover:shadow-lg transition-all duration-200 h-full flex flex-col">
+
+        {/* Image */}
+        <div className="relative aspect-square overflow-hidden bg-[#F0EDE6]">
           {listing.imageUrl ? (
-            <img 
-              src={listing.imageUrl} 
-              alt={listing.cropName} 
-              className="w-full h-full object-cover"
+            <img
+              src={listing.imageUrl}
+              alt={listing.cropName}
+              className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             />
           ) : (
-            <div className="w-full h-full flex items-center justify-center">
-              <Sprout className="w-12 h-12 text-[#003F3A]/10" />
+            <div className="w-full h-full flex items-center justify-center bg-[#E8E4DC]">
+              <span className="text-4xl">🌾</span>
             </div>
           )}
-          
+
+          {!isAvailable && (
+            <div className="absolute inset-0 bg-black/50 flex items-center justify-center">
+              <span className="bg-white text-black font-black text-xs px-3 py-1 rounded-full uppercase tracking-widest">Sold</span>
+            </div>
+          )}
+
           {listing.boosted && (
             <div className="absolute top-2 left-2">
-              <Badge className="bg-[#8C6239] text-white border-none text-[10px] uppercase tracking-tighter py-0 px-2 h-5">
+              <span className="bg-[#8C6239] text-white text-[10px] font-black uppercase tracking-widest px-2 py-0.5 rounded-md">
                 Featured
-              </Badge>
+              </span>
             </div>
           )}
         </div>
 
-        <div className="p-3 flex flex-col flex-grow">
-          <div className="flex items-center justify-between mb-1">
-            <p className="font-bold text-[#2A2A2A] text-lg">${Number(listing.price).toLocaleString()}</p>
-            <div className="flex items-center gap-1 px-1.5 py-0.5 bg-green-50 rounded border border-green-100">
-              <Zap className="w-3 h-3 text-green-700" />
-              <span className="text-[10px] font-black text-green-700 uppercase tracking-tighter">Live</span>
-            </div>
-          </div>
-          <h3 className="text-sm text-[#2A2A2A]/80 font-medium line-clamp-1 mb-2">
+        {/* Info — Facebook Marketplace style */}
+        <div className="p-3 flex flex-col gap-0.5">
+          {/* Price — most prominent */}
+          <p className="text-[#1c1c1c] font-black text-[1.1rem] leading-tight">
+            ${Number(listing.price).toLocaleString()}
+            <span className="text-xs font-semibold text-[#606060] ml-1">/ {listing.unit}</span>
+          </p>
+
+          {/* Title */}
+          <h3 className="text-[#1c1c1c] text-sm font-semibold leading-snug line-clamp-2 mt-0.5">
             {listing.cropName}
+            <span className="text-[#606060] font-normal"> · {listing.category}</span>
           </h3>
 
-          <div className="mt-auto flex items-center gap-1.5 text-[11px] text-[#2A2A2A]/50 font-bold uppercase tracking-tight">
-            <MapPin className="w-3 h-3" />
-            <span>{farmer.state}</span>
-            <span>•</span>
-            <span>{listing.unit}</span>
+          {/* Location — clearly highlighted */}
+          <div className="flex items-center gap-1 mt-1">
+            <MapPin className="w-3 h-3 text-[#606060] shrink-0" />
+            <span className="text-xs text-[#606060] font-medium truncate">
+              {farm?.lga ? `${farm.lga}, ` : ""}{farmer.state}
+            </span>
           </div>
         </div>
       </div>

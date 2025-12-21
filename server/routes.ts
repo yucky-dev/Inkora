@@ -346,32 +346,32 @@ async function seedDatabase() {
 
     const admin = await storage.createUser({
       name: "Admin User",
-      phone: "0000000000",
-      state: "Lagos",
+      phone: "+44 7700 000000",
+      state: "Greater London",
       role: "Admin",
       passwordHash: adminHash,
     });
 
     const farmer1 = await storage.createUser({
       name: "John Doe",
-      phone: "1111111111",
-      state: "Kano",
+      phone: "+44 7700 111111",
+      state: "Yorkshire",
       role: "Farmer",
       passwordHash: farmerHash,
     });
     
     const farmer2 = await storage.createUser({
       name: "Jane Smith",
-      phone: "2222222222",
-      state: "Oyo",
+      phone: "+44 7700 222222",
+      state: "Lancashire",
       role: "Farmer",
       passwordHash: farmerHash,
     });
 
     const buyer = await storage.createUser({
-      name: "Acme Foods",
-      phone: "3333333333",
-      state: "Lagos",
+      name: "Acme Foods Ltd",
+      phone: "+44 7700 333333",
+      state: "Greater London",
       role: "Buyer",
       passwordHash: buyerHash,
     });
@@ -381,51 +381,51 @@ async function seedDatabase() {
     await storage.createFarm({
       userId: farmer1.id,
       farmSize: "5 Hectares",
-      mainCrops: "Maize, Soybeans",
-      lga: "Dala"
+      mainCrops: "Wheat, Barley",
+      lga: "Harrogate"
     });
 
     await storage.createFarm({
       userId: farmer2.id,
       farmSize: "2 Hectares",
-      mainCrops: "Cassava",
-      lga: "Ibadan North"
+      mainCrops: "Potatoes, Oats",
+      lga: "Preston"
     });
 
     await storage.createListing({
       farmerId: farmer1.id,
-      cropName: "White Maize",
+      cropName: "Winter Wheat",
       category: "Food crop",
       quantity: "50",
       unit: "bags",
-      price: "15000",
+      price: "285",
       status: "Available",
       boosted: true,
-      imageUrl: "https://images.unsplash.com/photo-1551754655-cd27e38d2076?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      imageUrl: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
     });
 
     await storage.createListing({
       farmerId: farmer1.id,
-      cropName: "Soybeans",
+      cropName: "Spring Barley",
       category: "Cash crop",
       quantity: "2",
-      unit: "ton",
-      price: "450000",
+      unit: "tons",
+      price: "215",
       status: "Available",
       boosted: false,
-      imageUrl: "https://images.unsplash.com/photo-1599863486307-e81882bd6d7a?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      imageUrl: "https://images.unsplash.com/photo-1500382017468-9049fed747ef?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
     });
 
     await storage.createListing({
       farmerId: farmer2.id,
-      cropName: "Cassava Tubers",
+      cropName: "King Edward Potatoes",
       category: "Food crop",
-      quantity: "100",
+      quantity: "500",
       unit: "kg",
-      price: "2000",
+      price: "380",
       status: "Available",
       boosted: false,
-      imageUrl: "https://images.unsplash.com/photo-1628156107384-59e55717bc44?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
+      imageUrl: "https://images.unsplash.com/photo-1508313880080-c4bef0730395?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=60"
     });
     console.log("Database seeded successfully.");
   }
