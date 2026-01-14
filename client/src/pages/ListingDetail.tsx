@@ -16,6 +16,7 @@ export default function ListingDetail() {
   const recordView = useRecordView();
   const upvote = useUpvoteUser();
   const { toast } = useToast();
+  const [activePhoto, setActivePhoto] = useState(0);
 
   useEffect(() => {
     if (listingId) {
@@ -56,8 +57,6 @@ export default function ListingDetail() {
   const allPhotos = (listing as any).imageUrls?.length > 0
     ? (listing as any).imageUrls
     : listing.imageUrl ? [listing.imageUrl] : [];
-
-  const [activePhoto, setActivePhoto] = useState(0);
 
   const prevPhoto = () => setActivePhoto(p => Math.max(0, p - 1));
   const nextPhoto = () => setActivePhoto(p => Math.min(allPhotos.length - 1, p + 1));
