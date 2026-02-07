@@ -1,0 +1,41 @@
+I'll create Faspo, a comprehensive crop recommendation app for farmers worldwide. First, let me check the attached picture to craft the logo.
+
+Now let me view the image:
+
+Perfect! I can see the beautiful, vibrant green agricultural landscape. Now let me check the frontend design skill and then create Faspo with a logo inspired by this imagery.
+
+Now I'll create Faspo—a sophisticated, agricultural-focused crop recommendation app with a striking design inspired by the verdant landscape image. The aesthetic will balance organic/natural with modern agricultural tech.
+
+Now let me present the app to you:
+
+## 🌱 Faspo - Farm & Soil Prediction Oracle
+
+I've created **Faspo**, a sophisticated crop recommendation platform inspired by your verdant landscape image. Here's what the app features:
+
+### **Core Features:**
+
+✅ **Location Search** — Enter any city, country, or region to get instant analysis
+✅ **Crop Recommendations** — AI-powered recommendations based on climate, temperature, and rainfall data
+✅ **Success Rate Calculation** — Dynamic scoring system evaluating crop suitability (0-100%)
+✅ **Risk Assessment** — Inverse risk calculation showing potential failure probabilities
+✅ **Pest Database** — 12+ common crops with comprehensive pest and disease libraries
+✅ **Regional Data** — Pre-loaded data for 15+ major agricultural regions (Nigeria, India, Brazil, Kenya, USA, etc.)
+
+### **How It Works:**
+
+1. **Search a location** (Nigeria, India, California, etc.)
+2. **View climate profile** — Temperature, rainfall, and climate zone
+3. **See top 5 crops** ranked by success rate
+4. **Check risk metrics** — Visual bars for success vs. risk
+5. **Expand crop details** — Click any crop to reveal common pests and diseases specific to that crop-region combination
+
+### **Design Highlights:**
+
+- **Custom animated logo** inspired by your green landscape (rotating leaf petals in the header)
+- **Vibrant emerald/green gradient theme** echoing agricultural vitality
+- **Smooth animations** and hover effects for premium feel
+- **Responsive grid layout** that adapts to mobile/tablet/desktop
+- **Professional typography** with serif headers for authority
+- **Dark theme** with glowing gradients and glassmorphism effects
+
+The app includes 12 major crops (wheat, maize, rice, tomato, potato, soybean, cotton, cassava, banana, coffee, cocoa, millet) with detailed pest/disease data tailored to 15+ regions worldwide. You can expand the database easily by adding more crops and regions to the `cropDatabase` and `regionClimateData` objects.
